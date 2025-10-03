@@ -1,53 +1,92 @@
-// server.js
-
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
+const express = require("express");
+const cors = require("cors");
 
 const app = express();
-const PORT = 5000;
-
-// Middleware
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
-// Route to test server
-app.get('/', (req, res) => {
-  res.send('Backend is running!');
+// Scoring system
+const scoreMap = { A: 1, B: 2, C: 3, D: 4 };
+
+// -----------------------------
+// Investor Assessment Function
+// -----------------------------
+function calculateInvestorLevel(answers) {
+  let totalScore = 0;
+  answers.forEach(ans => {
+    totalScore += scoreMap[ans] || 0;
+  });
+
+  let level = "";
+  let learningPath = "";
+
+  if (totalScore >= 12 && totalScore <= 20) {
+    level = "Beginner";
+    learningPath = "Basics Track: What is investing?, stocks/bonds/ETFs, starter portfolio, emotional control.";
+  } else if (totalScore >= 21 && totalScore <= 32) {
+    level = "Intermediate";
+    learningPath = "Growth Track: diversification, risk-return tradeoffs, valuation basics, comparing stocks/ETFs, common financial ratios.";
+  } else if (totalScore >= 33 && totalScore <= 48) {
+    level = "Advanced";
+    learningPath = "Analytics Track: portfolio optimization, valuation models, advanced risk management, options, active trader strategies.";
+  } else {
+    level = "Unclassified";
+    learningPath = "Please retake the quiz to get a clearer result.";
+  }
+
+  return { totalScore, level, learningPath };
+}
+
+// -----------------------------
+// Personality Quiz Function
+// -----------------------------
+function personalityQuiz(answers) {
+  let counts = { A: 0, B: 0, C: 0, D: 0 };
+
+  answers.forEach(ans => {
+    if (counts[ans] !== undefined) counts[ans]++;
+  });
+
+  let topChoice = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+
+  let recommendation = "";
+  switch (topChoice) {
+    case "A":
+      recommendation = "Tech & Innovation (Apple, Nvidia, Netflix, Microsoft, Tesla)";
+      break;
+    case "B":
+      recommendation = "Travel, Environment & Lifestyle (Airbnb, Disney, Delta, NextEra Energy, EV companies)";
+      break;
+    case "C":
+      recommendation = "Healthcare & Stability (Johnson & Johnson, Pfizer, UnitedHealth, Consumer Staples)";
+      break;
+    case "D":
+      recommendation = "Consumer Goods & Entertainment (Nike, Amazon, Spotify, Target, Coca-Cola)";
+      break;
+    default:
+      recommendation = "No clear match — explore multiple industries!";
+  }
+
+  return { topChoice, recommendation };
+}
+
+// -----------------------------
+// API Endpoints
+// -----------------------------
+app.post("/api/investor-assessment", (req, res) => {
+  const { answers } = req.body;
+  const result = calculateInvestorLevel(answers);
+  res.json(result);
 });
 
-// Route to calculate investor assessment
-app.post('/assessment', (req, res) => {
-    const { answers } = req.body; // expecting an array of 12 answers (A/B/C/D)
-    
-    if (!answers || answers.length !== 12) {
-        return res.status(400).json({ error: "Provide 12 answers" });
-    }
-
-    // Convert answers to points
-    const points = answers.map(ans => {
-        switch(ans.toUpperCase()) {
-            case 'A': return 1;
-            case 'B': return 2;
-            case 'C': return 3;
-            case 'D': return 4;
-            default: return 0;
-        }
-    });
-
-    const totalScore = points.reduce((sum, val) => sum + val, 0);
-
-    // Determine user level
-    let level = '';
-    if (totalScore >= 12 && totalScore <= 20) level = 'Beginner';
-    else if (totalScore >= 21 && totalScore <= 32) level = 'Intermediate';
-    else if (totalScore >= 33 && totalScore <= 48) level = 'Advanced';
-    else level = 'Unknown';
-
-    res.json({ totalScore, level });
+app.post("/api/personality-quiz", (req, res) => {
+  const { answers } = req.body;
+  const result = personalityQuiz(answers);
+  res.json(result);
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+// -----------------------------
+// Server Start
+// -----------------------------
+const PORT = 5000;
+app.listen(PORT, () => console.log(`✅ Server running on http://localhost:${PORT}`));
