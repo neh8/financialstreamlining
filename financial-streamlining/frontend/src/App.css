@@ -32,7 +32,47 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.question-container {
+  margin-bottom: 20px;
+}
+
+.answer-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.question-button {
+  height: 50px;
+  width: 170%;
+  padding: 10px 20px;
+  text-align: left;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 15px;
+}
+
+.question-button.selected {
+  background-color: lightblue
+}
+
+.question-text {
+  font-size: 30px;
+}
+
+.results {
+  font-size: 30px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 100%
 }

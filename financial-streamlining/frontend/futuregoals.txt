@@ -1,0 +1,20 @@
+Goals for the future/next sprint:
+* Verify that the scoring system is correct
+* Replace risk-assesment questions with knowledge questions
+  * Also add a question that basically asks "what did you get on the risk assesment"
+  * We will have to update/refactor the scoring system when we add new questions
+* Reformat to one question per page
+  * Add "Next" button for each question
+  * Button takes users to a new page/view of the page that shows a different question
+  * Submit button only appears after last question
+  * Make it so you cannot continue to the next question until you have answered the current one
+* Make answers appear in a random order (i.e. not the same order every time)
+  * Goal: Make sure the assesment is testing finance knowledge (currently you can automatically get the "Advanced" label by always guessing D)
+* Fix the CSS to match OpenFinAl styles
+* Create "start quiz" and "results" pages
+* Make "results" page direct user to appropriate resources
+* Coordinate with the database people about the information we are collecting and how they want it formatted
+* Add this to the OpenFinAl codebase once CSS is standardized and bugs are gone
+* Clean up the code and make sure it's documented as we go
+* Update the README (it currently contains the generic "Getting Started with React" instructions)
+* Write some tests(?)
