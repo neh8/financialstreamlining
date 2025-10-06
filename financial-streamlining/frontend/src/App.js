@@ -190,7 +190,7 @@ function App() {
     } else if (score >= 15 && score <= 21) {
       level = "Intermediate";
       learningPath = "Growth Track: diversification, risk-return tradeoffs, valuation basics, comparing stocks/ETFs, common financial ratios.";
-    } else if (score >= 21 && score <= 25) {
+    } else if (score >= 21 && score <= 26) {
       level = "Advanced";
       learningPath = "Analytics Track: portfolio optimization, valuation models, advanced risk management, options, active trader strategies.";
     } else {
