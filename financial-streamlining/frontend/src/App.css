@@ -39,14 +39,17 @@
 }
 
 .question-container {
-  margin-bottom: 20px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .answer-options {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width: 100%;
   max-width: 400px;
 }
 
@@ -62,7 +65,7 @@
 }
 
 .question-button.selected {
-  background-color: lightblue
+  background-color: lightblue;
 }
 
 .question-text {
@@ -75,4 +78,38 @@
   flex-direction: column;
   text-align: center;
   width: 100%
+}
+
+#submit-assesment {
+  display: none;
+}
+
+#next-question-button {
+  width: 150px;
+  display: none;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+header {
+  font-size: 20px;
+  font-family: arial;
+  color: white;
+  background-color: lightskyblue;
+  margin-top: 0;
+  border-top: 20px solid lightskyblue;
+  padding-left: 10px;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
 }
