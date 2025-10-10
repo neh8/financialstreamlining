@@ -41,7 +41,7 @@ function App() {
         { answerText: "Not at all.", score: 1 },
         { answerText: "I've heard of them but don't understand how to use them.", score: 2 },
         { answerText: "I can interpret them for basic stock analysis.", score: 3 },
-        { answerText: "I ues them regularly in my investment decisions.", score: 4 }
+        { answerText: "I use them regularly in my investment decisions.", score: 4 }
       ],
     },
     {
