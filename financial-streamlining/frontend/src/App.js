@@ -29,10 +29,10 @@ function App() {
     {
       questionText: "What does \"diversification\" mean in investing?",
       answerOptions: [
-        { answerText: "Putting all your money in one stock for higher returns.", score: 1 },
-        { answerText: "Spreading investments across different assets to reduce risk.", score: 2 },
-        { answerText: "Buying only low-risk bonds.", score: 3 },
-        { answerText: "I don't know.", score: 4 }
+        { answerText: "Putting all your money in one stock for higher returns.", score: 3 },
+        { answerText: "Spreading investments across different assets to reduce risk.", score: 4 },
+        { answerText: "Buying only low-risk bonds.", score: 2 },
+        { answerText: "I don't know.", score: 1 }
       ],
     },
     {
