@@ -89,8 +89,8 @@ function App() {
         { answerText: "11-15 years", score: 1 }
       ],
     },
-  {
-       questionText: "My current and future income sources are…",
+    {
+      questionText: "My current and future income sources are…",
       answerOptions: [
         { answerText: "Very Unstable", score: 4 },
         { answerText: "Unstable", score: 3 },
@@ -99,7 +99,7 @@ function App() {
       ],
     },
     {
-       questionText: "How would you describe your understanding of how taxes affect your investments?",
+      questionText: "How would you describe your understanding of how taxes affect your investments?",
       answerOptions: [
         { answerText: "I don’t really know how investment taxes work.", score: 1 },
         { answerText: "I’ve heard of capital gains and tax-advantaged accounts, but don’t fully understand them.", score: 2 },
@@ -150,10 +150,10 @@ function App() {
     newAnswers[index] = choice.answerText;
     setAnswers(newAnswers);
     if (currentQuestion < questions.length - 1) {
-      document.getElementById("next-question-button").style.display = "block"
+      document.getElementsByClassName("next-question-button").style.display = "block"
     }
     else {
-      document.getElementById("submit-assesment").style.display = "block";
+      document.getElementsByClassName("submit-assesment").style.display = "block";
     }
   };
 
@@ -188,15 +188,7 @@ function App() {
       level = "Advanced";
       learningPath =
         "Analytics Track: portfolio optimization, valuation models, advanced risk management, options, active trader strategies.";
-    } 
-    /*const testytest = document.createElement('div')
-    testytest.id = "thisisatest"
-    testytest.innerHTML = `
-    <div className=results>
-      <p>Your score for this section is ${score}, your investor level is ${level}, and your recommended learning path is ${learningPath}</p>
-    </div>
-    `
-    document.body.appendChild(testytest)*/
+    }
     setStep("results")
     setResult({ "score": score, "level": level, "learningPath": learningPath });
   }
@@ -219,33 +211,45 @@ function App() {
         <h2>Investor Assessment</h2>
       </header>
 
-      <div>
+      <div className="survey-wrapper">
         {step === "begin" && (
-          <div className="container">
-            <h2>Welcome to the financial-knowledge assesment! Please click the button to begin.</h2>
-            <button id="start" onClick={() => setStep("assessment")}>Begin Assesment</button>
+          <div className="survey-container">
+            <div className="disclaimer-content">
+              <h2>Welcome to the financial-knowledge assesment! Please click the button to begin.</h2>
+              <div className="disclaimer-buttons">
+                <button
+                  className="agree-button"
+                  onClick={() => setStep("assessment")}>
+                  Begin Assesment
+                </button>
+              </div>
+            </div>
           </div>
         )}
 
         {step === "assessment" && (
-          <div className="container">
-            <div className="question-container">
-              <p className="question-text">{questions[currentQuestion].questionText}</p>
-              <div className="answer-options">
-                {questions[currentQuestion].answerOptions.map((opt) => (
-                  <button
-                    key={opt.answerText}
-                    onClick={() => handleAnswer(currentQuestion, opt)}
-                    className={`question-button ${answers[currentQuestion] === opt.answerText ? "selected" : ""}`}
-                    disabled={answers[currentQuestion] && answers[currentQuestion] !== opt.answerText}
-                  >
-                    {opt.answerText}
-                  </button>
-                ))}
-                <button id="next-question-button" onClick={() => nextQuestion(currentQuestion)}>Next Question</button>
+          <div className="survey-container">
+            <div className="survey-content">
+              <div className="question-container">
+                <p className="question-text">{questions[currentQuestion].questionText}</p>
+                <div className="answer-options">
+                  {questions[currentQuestion].answerOptions.map((opt) => (
+                    <button
+                      key={opt.answerText}
+                      onClick={() => handleAnswer(currentQuestion, opt)}
+                      className={`option-button ${answers[currentQuestion] === opt.answerText ? "selected" : ""}`}
+                      disabled={answers[currentQuestion] && answers[currentQuestion] !== opt.answerText}
+                    >
+                      {opt.answerText}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="navigation-container">
+                <button className="next-question-button" onClick={() => nextQuestion(currentQuestion)}>Next</button>
+                <button className="submit-assessment" onClick={() => testScoreCalculation(answers)}>Submit Assessment</button>
               </div>
             </div>
-            <button id="submit-assesment" onClick={() => testScoreCalculation(answers)}>Submit Assessment</button>
           </div>
         )
         }
@@ -253,11 +257,13 @@ function App() {
 
         {
           step === "results" && (
-            <div className="container">
-              <h2>Results</h2>
-              <p><strong>Score:</strong> {result?.score}</p>
-              <p><strong>Investor Type:</strong> {result?.level}</p>
-              <p><strong>Learning Path:</strong> {result?.learningPath}</p>
+            <div className="survey-container">
+              <div className="result-container">
+                <h2 className="result-tilte">Results</h2>
+                <p className="result-text">Score: {result?.score}</p>
+                <p className="result-text">Investor Type: {result?.level}</p>
+                <p className="result-text">Learning Path: {result?.learningPath}</p>
+              </div>
             </div>
           )
         }
